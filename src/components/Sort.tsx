@@ -4,9 +4,20 @@ import toggle = Simulate.toggle;
 
 const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [selected, setSelected] = useState(0);
+
+  const handleClickSelector = (index: number) => {
+    setSelected(index);
+    setIsVisible(false);
+  };
+
+  const list = ["популярности", "цене", "алфавиту"];
   return (
     <div className="sort">
-      <div onClick={() => setIsVisible(!isVisible)} className="sort__label">
+      <div
+        onClick={() => setIsVisible(!isVisible)}
+        className={`sort__label ${isVisible ? "active" : ""}`}
+      >
         <svg
           width="10"
           height="6"
@@ -20,14 +31,20 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span>{list[selected]}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
           <ul>
-            <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
+            {list.map((value, index) => (
+              <li
+                className={selected === index ? "active" : ""}
+                key={index}
+                onClick={() => handleClickSelector(index)}
+              >
+                {value}
+              </li>
+            ))}
           </ul>
         </div>
       )}
