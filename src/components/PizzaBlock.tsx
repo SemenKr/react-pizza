@@ -20,6 +20,9 @@ type Pizza = {
 
 export const PizzaBlock: FC<Pizza> = ({ title, price, imageUrl }) => {
   const [count, setCount] = useState(0);
+  const onClickButtonCount = () => {
+    setCount(count + 1);
+  };
 
   return (
     <>
@@ -41,9 +44,7 @@ export const PizzaBlock: FC<Pizza> = ({ title, price, imageUrl }) => {
           <div className="pizza-block__price">от {price} ₽</div>
           <button
             className="button button--outline button--add"
-            onClick={() => {
-              setCount((count) => count + 1);
-            }}
+            onClick={onClickButtonCount}
           >
             <svg
               width="12"
