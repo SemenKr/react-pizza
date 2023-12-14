@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { Simulate } from "react-dom/test-utils";
+import toggle = Simulate.toggle;
 
 const Sort: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="sort">
-      <div className="sort__label">
+      <div onClick={() => setIsVisible(!isVisible)} className="sort__label">
         <svg
           width="10"
           height="6"
@@ -19,13 +22,15 @@ const Sort: React.FC = () => {
         <b>Сортировка по:</b>
         <span>популярности</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isVisible && (
+        <div className="sort__popup">
+          <ul>
+            <li className="active">популярности</li>
+            <li>цене</li>
+            <li>алфавиту</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
