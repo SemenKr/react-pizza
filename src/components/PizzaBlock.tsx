@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 // Определение типа для размера пиццы
 type PizzaSize = 26 | 30 | 40;
@@ -19,6 +19,8 @@ type Pizza = {
 };
 
 export const PizzaBlock: FC<Pizza> = ({ title, price, imageUrl }) => {
+  const [count, setCount] = useState(0);
+
   return (
     <>
       <div className="pizza-block">
@@ -37,7 +39,12 @@ export const PizzaBlock: FC<Pizza> = ({ title, price, imageUrl }) => {
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
-          <div className="button button--outline button--add">
+          <button
+            className="button button--outline button--add"
+            onClick={() => {
+              setCount((count) => count + 1);
+            }}
+          >
             <svg
               width="12"
               height="12"
@@ -51,8 +58,8 @@ export const PizzaBlock: FC<Pizza> = ({ title, price, imageUrl }) => {
               />
             </svg>
             <span>Добавить</span>
-            <i>2</i>
-          </div>
+            <i>{count}</i>
+          </button>
         </div>
       </div>
     </>
