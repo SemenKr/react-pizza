@@ -4,23 +4,16 @@ import Header from "./components/Header";
 import Categories from "./components/Categories";
 import Sort from "./components/Sort";
 import { PizzaBlock } from "./components/PizzaBlock";
-import axios from "axios";
 
 const App = () => {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
-    // axios
-    //   .get("https://657c2ed1853beeefdb98d9e2.mockapi.io/items")
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
     fetch("https://657c2ed1853beeefdb98d9e2.mockapi.io/items")
       .then((res) => {
         return res.json();
       })
       .then((json) => {
-        console.log("Массив пицц", json);
         setPizzas(json);
       });
   }, []);
