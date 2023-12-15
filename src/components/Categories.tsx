@@ -11,7 +11,7 @@ const Categories: React.FC = () => {
     "Острые",
     "Закрытые",
   ];
-  const onClickCategoty = (index: number) => {
+  const onClickCategory = (index: number) => {
     setActiveIndex(index);
   };
   return (
@@ -20,7 +20,7 @@ const Categories: React.FC = () => {
         {categories.map((value, index) => (
           <li
             key={index}
-            onClick={() => onClickCategoty(index)}
+            onClick={() => onClickCategory(index)}
             className={activeIndex === index ? "active" : ""}
           >
             {value}
