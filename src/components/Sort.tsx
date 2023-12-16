@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Simulate } from "react-dom/test-utils";
-import toggle = Simulate.toggle;
 
 const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
