@@ -2,6 +2,9 @@
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 .title {
@@ -16,5 +19,5 @@
 }
 
 .description {
-  font-size: 2rem;
+  font-size: 1rem;
 }

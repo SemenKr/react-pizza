@@ -30,7 +30,7 @@ export const PizzaBlock: FC<Pizza> = ({
 
   const typeNames: Array<string> = ["тонкое", "традиционное"];
   return (
-    <>
+    <div className={"pizza-block-wrapper"}>
       <div className="pizza-block">
         <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{title}</h4>
@@ -78,6 +78,6 @@ export const PizzaBlock: FC<Pizza> = ({
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
