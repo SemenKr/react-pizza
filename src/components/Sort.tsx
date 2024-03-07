@@ -4,12 +4,15 @@ const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(0);
 
+	const list = ["популярности", "цене", "алфавиту"];
+	const sortName = list[selected]
+
   const handleClickSelector = (index: number) => {
     setSelected(index);
     setIsVisible(false);
   };
 
-  const list = ["популярности", "цене", "алфавиту"];
+
   return (
     <div className="sort">
       <div
@@ -29,7 +32,7 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{list[selected]}</span>
+        <span>{sortName}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
