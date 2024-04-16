@@ -11,8 +11,24 @@
     align-items: flex-start;
   }
 
-  &__image {
-    width: 260px;
+  &__image-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      display: block;
+      padding-bottom: calc(260 / 260 * 100%); /* тут подбирается %, чтобы соответствовать нужным пропорциям картинки */
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &__title {

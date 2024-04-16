@@ -32,7 +32,16 @@ export const PizzaBlock: FC<Pizza> = ({
   return (
     <div className={"pizza-block-wrapper"}>
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <div className="pizza-block__image-wrapper">
+          <img
+            className="pizza-block__image"
+            src={imageUrl}
+            width={260}
+            height={260}
+            alt="Pizza"
+          />
+        </div>
+
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
