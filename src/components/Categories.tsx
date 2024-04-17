@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-const Categories: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
+interface CategoriesProps {
+  value: number;
+  onClickCategory: (index: number) => void;
+}
+const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -11,19 +13,17 @@ const Categories: React.FC = () => {
     "Острые",
     "Закрытые",
   ];
-  const onClickCategory = (index: number) => {
-    setActiveIndex(index);
-  };
+
   return (
     <div className="categories">
       <ul>
-        {categories.map((value, index) => (
+        {categories.map((categoryName, i) => (
           <li
-            key={index}
-            onClick={() => onClickCategory(index)}
-            className={activeIndex === index ? "active" : ""}
+            key={i}
+            onClick={() => onClickCategory(i)}
+            className={value === i ? "active" : ""}
           >
-            {value}
+            {categoryName}
           </li>
         ))}
       </ul>
