@@ -16,13 +16,14 @@ const Home = () => {
     name: "популярности",
     sortProperty: "rating",
   });
+  const [sortDirectionDesc, setSortDirectionDesc] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
       `${mockApiUrl}?${categoryId > 0 ? `categoty=${categoryId}` : ""}&sortBy=${
         sortType.sortProperty
-      }&order=desc`,
+      }&order=${sortDirectionDesc ? "desc" : "asc"}`,
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -30,7 +31,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, sortDirectionDesc]);
 
   return (
     <div className={"container"}>
@@ -39,7 +40,12 @@ const Home = () => {
           value={categoryId}
           onClickCategory={(index) => setCategoryId(index)}
         />
-        <Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
+        <Sort
+          value={sortType}
+          onChangeSort={(index) => setSortType(index)}
+          sortDirectionDesc={sortDirectionDesc}
+          changeSortDirection={(dir) => setSortDirectionDesc(dir)}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
