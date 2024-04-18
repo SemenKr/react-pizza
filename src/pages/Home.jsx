@@ -5,16 +5,24 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import { PizzaBlock } from "../components/PizzaBlock/PizzaBlock";
 
+const mockApiUrl =
+  "https://661febda16358961cd95eaba.mockapi.io/react-pizzas/items";
+
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: "популярности",
+    sortProperty: "rating",
+  });
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(
-      "https://661febda16358961cd95eaba.mockapi.io/items?category=" +
-        categoryId,
+      `${mockApiUrl}?${categoryId > 0 ? `categoty=${categoryId}` : ""}&sortBy=${
+        sortType.sortProperty
+      }&order=desc`,
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -22,7 +30,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId]);
+  }, [categoryId, sortType]);
 
   return (
     <div className={"container"}>
@@ -31,7 +39,7 @@ const Home = () => {
           value={categoryId}
           onClickCategory={(index) => setCategoryId(index)}
         />
-        <Sort />
+        <Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

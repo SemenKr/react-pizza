@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 
-const Sort: React.FC = () => {
+interface SortProps {
+  value: { name: string; sortProperty: string };
+  onChangeSort: (obj: { name: string; sortProperty: string }) => void;
+}
+const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selected, setSelected] = useState(0);
 
-	const list = ["популярности", "цене", "алфавиту"];
-	const sortName = list[selected]
+  const list = [
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "алфавиту", sortProperty: "alphabet" },
+  ];
 
-  const handleClickSelector = (index: number) => {
-    setSelected(index);
+  const handleClickSelector = (obj: { name: string; sortProperty: string }) => {
+    onChangeSort(obj);
     setIsVisible(false);
   };
-
 
   return (
     <div className="sort">
@@ -32,18 +37,20 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{sortName}</span>
+        <span>{value.name}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
           <ul>
-            {list.map((value, index) => (
+            {list.map((obj, index) => (
               <li
-                className={selected === index ? "active" : ""}
+                className={
+                  value.sortProperty === obj.sortProperty ? "active" : ""
+                }
                 key={index}
-                onClick={() => handleClickSelector(index)}
+                onClick={() => handleClickSelector(obj)}
               >
-                {value}
+                {obj.name}
               </li>
             ))}
           </ul>
