@@ -21,13 +21,23 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `${mockApiUrl}?${categoryId > 0 ? `categoty=${categoryId}` : ""}&sortBy=${
+      `${mockApiUrl}?${categoryId > 0 ? `category=${categoryId}` : ""}&sortBy=${
         sortType.sortProperty
       }&order=${sortDirectionDesc ? "desc" : "asc"}`,
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("not found"); // Генерируем ошибку, если ответ от сервера не ok
+        }
+        return res.json();
+      })
       .then((arr) => {
         setPizzas(arr);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setPizzas([]); // Устанавливаем пустой массив в случае ошибки
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
