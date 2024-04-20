@@ -15,8 +15,6 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   return (
     <div className={styles.search + " " + className}>
-      <IconSearch className={styles.search__icon} />
-
       <input
         className={styles.search__input}
         type="text"
@@ -24,6 +22,7 @@ const Search: React.FC<SearchProps> = ({
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
+      <IconSearch className={styles.search__icon} />
       {searchValue && (
         <button
           className={styles.search__close}
