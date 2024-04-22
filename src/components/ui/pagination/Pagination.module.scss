@@ -1,0 +1,38 @@
+.pagination {
+	ul {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	a {
+		border: 1px solid rgba(0, 0, 0, 0.4);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2px;
+		width: 40px;
+		height: 40px;
+		transition:
+			background-color 0.3s ease-out,
+			color 0.3s ease-out,
+			border 0.3s ease-out;
+
+		&:hover {
+			background-color: rgba(254, 95, 30, 0.75);
+			border: rgba(254, 95, 30, 0.75);
+			color: #ffffff;
+		}
+	}
+
+	:global {
+		li.selected {
+			a {
+				background-color: rgba(254, 95, 30, 0.75);
+				border: rgba(254, 95, 30, 0.75);
+				color: #ffffff;
+			}
+		}
+	}
+}

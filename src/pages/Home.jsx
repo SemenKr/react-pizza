@@ -4,6 +4,7 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import {PizzaBlock} from "../components/PizzaBlock/PizzaBlock";
+import Pagination from '../components/ui/pagination/Pagination';
 
 const mockApiUrl =
 	"https://661febda16358961cd95eaba.mockapi.io/react-pizzas/items";
@@ -17,6 +18,7 @@ const Home = ({searchValue}) => {
 		sortProperty: "rating",
 	});
 	const [sortDirectionDesc, setSortDirectionDesc] = useState(true);
+	const [currentPage, setCurrentPage] = useState(1)
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -26,8 +28,7 @@ const Home = ({searchValue}) => {
 		const sort = sortType.sortProperty;
 		const order = sortDirectionDesc ? "desc" : "asc";
 
-
-		fetch(`${mockApiUrl}?${category}${search}&sortBy=${sort}&order=${order}`)
+		fetch(`${mockApiUrl}?page=${currentPage}&limit=4&${category}${search}&sortBy=${sort}&order=${order}`)
 			.then((res) => {
 				if (!res.ok) {
 					throw new Error("not found"); // Генерируем ошибку, если ответ от сервера не ok
@@ -44,33 +45,37 @@ const Home = ({searchValue}) => {
 				setIsLoading(false);
 			});
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType, sortDirectionDesc, searchValue]);
+	}, [categoryId, sortType, sortDirectionDesc, searchValue, currentPage]);
 
-	const items = pizzas
-		// .filter((obj) => {
-		//   return obj.title.toLowerCase().includes(searchValue.toLowerCase());
-		// })
-		.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+	const items = pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 	const skeletonItems = [...new Array(6)].map((_, index) => (
 		<Skeleton key={index} />
 	));
+
 
 	return (
 		<div className={"container"}>
 			<div className="content__top">
 				<Categories
 					value={categoryId}
-					onClickCategory={(index) => setCategoryId(index)}
+					onClickCategory={(index) => {
+						setCategoryId(index)
+						setCurrentPage(1)
+					}}
 				/>
 				<Sort
 					value={sortType}
-					onChangeSort={(index) => setSortType(index)}
+					onChangeSort={(index) => {
+						setSortType(index)
+						setCurrentPage(1)
+					}}
 					sortDirectionDesc={sortDirectionDesc}
 					changeSortDirection={(dir) => setSortDirectionDesc(dir)}
 				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">{isLoading ? skeletonItems : items}</div>
+			<Pagination onChangePage={number => setCurrentPage(number)} />
 		</div>
 	);
 };
