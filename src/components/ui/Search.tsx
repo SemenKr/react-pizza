@@ -20,7 +20,9 @@ const Search: React.FC<SearchProps> = ({
         type="text"
         placeholder={"Поиск пиццы..."}
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => {
+					setSearchValue(e.target.value)
+				}}
       />
       <IconSearch className={styles.search__icon} />
       {searchValue && (

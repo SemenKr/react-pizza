@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import logoSvg from "../assets/img/pizza-logo.svg";
 import { Link } from "react-router-dom";
 import Search from "./ui/Search";
 import { SearchType } from "./types";
+import { SearchContext } from "../App";
 
-const Header: React.FC<SearchType> = ({ searchValue, setSearchValue }) => {
+const Header: React.FC<SearchType> = () => {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
   return (
     <div className="header">
       <div className="container">
