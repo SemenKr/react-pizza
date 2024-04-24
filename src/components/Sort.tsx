@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-
-interface SortProps {
-  value: { name: string; sortProperty: string };
-  onChangeSort: (obj: { name: string; sortProperty: string }) => void;
-  sortDirectionDesc: boolean;
-  changeSortDirection: (dir: boolean) => void;
-}
-const Sort: React.FC<SortProps> = ({
-  value,
-  onChangeSort,
+import { useAppDispatch, useAppSelector } from "../hooks";
+import {
   changeSortDirection,
-  sortDirectionDesc,
-}) => {
+  FilterSortType,
+  selectSortDirection,
+  selectSortType,
+  setSortType,
+} from "../redux/slices/filterSlice";
+
+const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const list = [
@@ -20,12 +17,13 @@ const Sort: React.FC<SortProps> = ({
     { name: "алфавиту", sortProperty: "alphabet" },
   ];
 
-  const handleClickSelector = (obj: { name: string; sortProperty: string }) => {
-    onChangeSort(obj);
+  const sortDirectionDesc = useAppSelector(selectSortDirection); // Получение выбранной категории из хранилища состояний с помощью селектора
+  const sortType = useAppSelector(selectSortType); // Получение выбранной категории из хранилища состояний с помощью селектора
+  const dispatch = useAppDispatch(); // Получение диспетчера для отправки экшенов в хранилище
+
+  const handleClickSelector = (obj: FilterSortType) => {
+    dispatch(setSortType(obj));
     setIsVisible(false);
-  };
-  const handleSortDirectionChange = () => {
-    changeSortDirection(!sortDirectionDesc); // Инвертируем текущее направление сортировки
   };
 
   return (
@@ -47,7 +45,7 @@ const Sort: React.FC<SortProps> = ({
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{value.name}</span>
+        <span>{sortType.name}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
@@ -55,7 +53,7 @@ const Sort: React.FC<SortProps> = ({
             {list.map((obj, index) => (
               <li
                 className={
-                  value.sortProperty === obj.sortProperty ? "active" : ""
+                  sortType.sortProperty === obj.sortProperty ? "active" : ""
                 }
                 key={index}
                 onClick={() => handleClickSelector(obj)}
@@ -68,7 +66,7 @@ const Sort: React.FC<SortProps> = ({
       )}
       <button
         className={"sort__arrows-btn"}
-        onClick={handleSortDirectionChange}
+        onClick={() => dispatch(changeSortDirection(sortDirectionDesc))}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
