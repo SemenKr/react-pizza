@@ -1,22 +1,5 @@
 import { FC, useState } from "react";
-
-// Определение типа для размера пиццы
-type PizzaSize = 26 | 30 | 40;
-
-// Определение типа для типа пиццы
-type PizzaType = 0 | 1;
-
-// Определение типа для объекта пиццы
-type Pizza = {
-  id: number;
-  imageUrl: string;
-  title: string;
-  types: PizzaType[];
-  sizes: PizzaSize[];
-  price: number;
-  category: number;
-  rating: number;
-};
+import { Pizza } from "../types";
 
 export const PizzaBlock: FC<Pizza> = ({
   title,
