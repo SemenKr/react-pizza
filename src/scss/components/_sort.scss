@@ -75,7 +75,7 @@
 		transition: color $duration ease-in-out, opacity $duration ease-in-out;
 
 		&:hover {
-			color: #fe5f1e;
+			color: $orange;
 		}
 		&:active {
 			opacity: .7;
