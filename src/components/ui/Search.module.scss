@@ -2,6 +2,9 @@
 
 .search {
   position: relative;
+  width: 100%;
+  grid-column: span 2;
+  max-width: 600px;
 
   &__icon {
     position: absolute;
